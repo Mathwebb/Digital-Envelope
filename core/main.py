@@ -1,3 +1,4 @@
+from time import sleep
 import AES
 import DES
 import RC4
@@ -21,5 +22,5 @@ if __name__ == '__main__':
     #     if "aes" == args[2]:
     #         AES.decrypt(args[0], args[1], RSA.import_key(open("private.pem", 'rb').read()))
 
-    DES.encrypt('dados.txt', RSA.import_key(open("core/chaves_RSA/public.pem", "rb").read()))
-    DES.decrypt("encrypted_data.base64", "encrypted_key.base64", RSA.import_key(open("core/chaves_RSA/private.pem", "rb").read()))
+    RC4.encrypt('dados.txt', RC4.import_key(open("core/chaves_RSA/public.pem", "rb").read()))
+    # RC4.decrypt("encrypted_data.base64", "encrypted_key.base64", RC4.import_key(open("core/chaves_RSA/private.pem", "rb").read()))
