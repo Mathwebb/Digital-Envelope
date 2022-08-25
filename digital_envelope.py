@@ -37,17 +37,22 @@ class Envelope:
 
     def cipher(self, file_in, rsa_public_key):
         if self.sym_algorithm.upper() == 'AES':
-            with open(file_in, 'rb') as file:
-                session_key = get_random_bytes(16)
-                cipher = AES.new(session_key, AES.MODE_EAX)
-                ciphertext = cipher.encrypt(file.read())
-            with open("encrypted_data.base64", "wb") as file:
-                file.write(b64encode(ciphertext))
+            file_in = open(file_in, "r")
+            data_file_out = open("encrypted_data.bin", "wb")
+            key_file_out = open("encrypted_sym_key.bin", "wb")
+
+            session_key = get_random_bytes(16)
+
+            cipher_aes = AES.new(session_key, AES.MODE_EAX)
+            ciphertext = cipher_aes.encrypt(file_in.read().encode("utf-8"))
+            data_file_out.write(ciphertext)
 
             cipher_rsa = PKCS1_OAEP.new(rsa_public_key)
             enc_session_key = cipher_rsa.encrypt(session_key)
-            with open("encrypted_sym_key.base64", "wb") as file:
-                file.write(b64encode(enc_session_key))
+            key_file_out.write(enc_session_key)
+            file_in.close()
+            data_file_out.close()
+            key_file_out.close()
         elif self.sym_algorithm.upper() == 'DES':
             pass
         elif self.sym_algorithm.upper() == 'RC4':
@@ -57,17 +62,23 @@ class Envelope:
 
     def decipher(self, encrypted_data, encrypted_key, rsa_private_key, file_out):
         if self.sym_algorithm.upper() == 'AES':
-            with open(encrypted_key, "rb") as file:
-                cipher_rsa = PKCS1_OAEP.new(rsa_private_key)
-                session_key = cipher_rsa.decrypt(b64decode(file.read()))
+            file_in = open("encrypted_data.bin", "rb")
 
-            with open(encrypted_data, "rb") as file:
-                cipher = AES.new(session_key, AES.MODE_EAX)
-                plain_text = cipher.decrypt(b64decode(file.read()))
-                plain_text.decode()
+            private_key = RSA.import_key(open("private.pem").read())
 
-            with open(file_out, "wb") as file:
-                file.write(plain_text)
+            ciphertext = file_in.read()
+
+            enc_session_key = open(encrypted_key, "wb").read()
+
+            # Decrypt the session key with the private RSA key
+            cipher_rsa = PKCS1_OAEP.new(private_key)
+            session_key = cipher_rsa.decrypt(enc_session_key)
+
+            # Decrypt the data with the AES session key
+            cipher_aes = AES.new(session_key, AES.MODE_EAX)
+            data = cipher_aes.decrypt(ciphertext)
+            print(data.decode("utf-8"))
+            sleep(4)
         elif self.sym_algorithm.upper() == 'DES':
             pass
         elif self.sym_algorithm.upper() == 'RC4':
@@ -81,7 +92,6 @@ if __name__ == '__main__':
     args = [arg for arg in sys.argv[1:] if not arg.startswith("-")]
 
     opts.append("-aes")
-    args.append(str(128))
 
     if "-cipher" in opts:
         if "aes" == args[1]:
