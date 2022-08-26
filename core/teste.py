@@ -17,8 +17,8 @@ def encrypt(data_file, rc4_public_key):
 
     sessionKeyCipher = RSA.encrypt_session_key(sessionKey, rc4_public_key)
 
-    open("./results/encrypted/encrypted_data.base64", "wb").write(b64encode(msg))
-    open("./results/encrypted/encrypted_key.base64", "wb").write(b64encode(sessionKeyCipher))
+    open("C:/ufpi/projetos/digital-envelope/results/encrypted/encrypted_data.base64", "wb").write(b64encode(msg))
+    open("C:/ufpi/projetos/digital-envelope/results/encrypted/encrypted_key.base64", "wb").write(b64encode(sessionKeyCipher))
 
 def decrypt(data_file_output, session_key):
     # data = b64decode(open("./results/encrypted/encrypted_data.base64", "r").read())
@@ -29,5 +29,5 @@ def decrypt(data_file_output, session_key):
     # open(data_file_output, "wb").write(b64encode(textPlain))
     pass
 
-encrypt('../dados.txt', open("./chaves_RSA/public.pem", "rb").read())
+encrypt('C:/ufpi/projetos/digital-envelope/dados.txt', open("C:/ufpi/projetos/digital-envelope/core/chaves_RSA/public.pem", "rb").read())
 # decrypt("./results/decrypted/final_data.txt", open("./results/encrypted/encrypted_key.base64", "rb").read())
