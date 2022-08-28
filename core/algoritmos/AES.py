@@ -1,17 +1,17 @@
 from base64 import b64decode, b64encode
 from Crypto.Cipher import AES
-import RSA, SessionKey
-from os import path
+import algoritmos.RSA as RSA
+from algoritmos.SessionKey import generate_random_AES_key
 
-encrypted_files_default = "./results/encrypted/"
-decrypted_files_default = "./results/decrypted/"
+encrypted_files_default = "C:/Users/mathe/Downloads/Digital-Envelope-main/results/encrypted/"
+decrypted_files_default = "C:/Users/mathe/Downloads/Digital-Envelope-main/results/decrypted/"
 
 
 def encrypt(data_file, rsa_public_key, sym_key_size):
     data = open(data_file, "r").read().encode("utf-8")
 
     # Criptografa a mensagem com a chave de sessao aleatoria gerada
-    session_key = SessionKey.generate_random_AES_key(sym_key_size)
+    session_key = generate_random_AES_key(sym_key_size)
     cipher_aes = AES.new(session_key, AES.MODE_EAX)
     enc_data = cipher_aes.encrypt(data)
     # Criptografa a chave de sessao aleatoria com a chave publica rsa
