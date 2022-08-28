@@ -3,4 +3,5 @@ Exemplos/temp
 core/results/encrypted/*
 core/results/decrypted/*
 .idea
-__pycache__
+core/__pycache__
+core/algoritmos/__pycache__
