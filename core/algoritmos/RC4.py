@@ -1,14 +1,13 @@
-from time import sleep
+from base64 import b64decode, b64encode
 from Crypto.Cipher import ARC4
 from Crypto.Hash import SHA256, HMAC
 from Crypto.Random import get_random_bytes
-from base64 import b64decode, b64encode
-import SessionKey
+import algoritmos.RSA as rsa_local
+from algoritmos.SessionKey import generate_random_RC4_key
 from Crypto.PublicKey import RSA
-import RSA as rsa_local
 
-encrypted_files_default = "./results/encrypted/"
-decrypted_files_default = "./results/decrypted/"
+encrypted_files_default = "C:/Users/mathe/Downloads/Digital-Envelope-main/results/encrypted/"
+decrypted_files_default = "C:/Users/mathe/Downloads/Digital-Envelope-main/results/decrypted/"
 
 
 def encrypt(data_file, rsa_public_key):
@@ -16,7 +15,7 @@ def encrypt(data_file, rsa_public_key):
 
     # Gera chave de sessao e nonce aleatorios
     nonce = get_random_bytes(16)
-    session_key = SessionKey.generate_random_RC4_key()
+    session_key = generate_random_RC4_key()
     # Criptografa a mensagem com a chave de sessao e o nonce aleatorio gerados
     stream_key = HMAC.new(session_key + nonce, digestmod=SHA256).digest()
     cipher = ARC4.new(stream_key)
