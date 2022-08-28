@@ -56,5 +56,8 @@ elif len(sys.argv) == 6:
     else:
         print("O algoritmo simétrico dado é inválido")
 else:
-    print('Argumentos insuficientes para a criacao do envelope digital')
+    print('Argumentos insuficientes para a criacao do envelope digital, sao necessarios 4 argumentos ' +
+    '(arquivo da mensagem criptografada, arquivo da chave de sessa criptografada, arquivo da chave RSA privada, algoritmo simetrico)' +
+    ' ou 5 argumentos ' +
+    '(arquivo da mensagem criptografada, arquivo da chave de sessa criptografada, arquivo da chave RSA privada, arquivo de saida dos dados a serem decifrados, algoritmo simetrico)')
 
