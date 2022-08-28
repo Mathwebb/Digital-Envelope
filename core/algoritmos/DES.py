@@ -3,8 +3,8 @@ from Crypto.Cipher import DES
 import algoritmos.RSA as RSA
 from algoritmos.SessionKey import generate_random_DES_key
 
-encrypted_files_default = "C:/Users/mathe/Downloads/Digital-Envelope-main/results/encrypted/"
-decrypted_files_default = "C:/Users/mathe/Downloads/Digital-Envelope-main/results/decrypted/"
+encrypted_files_default = "results/encrypted/"
+decrypted_files_default = "results/decrypted/"
 
 
 def encrypt(data_file, rsa_public_key):

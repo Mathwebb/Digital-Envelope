@@ -6,8 +6,8 @@ import algoritmos.RSA as rsa_local
 from algoritmos.SessionKey import generate_random_RC4_key
 from Crypto.PublicKey import RSA
 
-encrypted_files_default = "C:/Users/mathe/Downloads/Digital-Envelope-main/results/encrypted/"
-decrypted_files_default = "C:/Users/mathe/Downloads/Digital-Envelope-main/results/decrypted/"
+encrypted_files_default = "results/encrypted/"
+decrypted_files_default = "results/decrypted/"
 
 
 def encrypt(data_file, rsa_public_key):
