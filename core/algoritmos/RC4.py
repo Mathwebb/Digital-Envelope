@@ -10,6 +10,7 @@ import RSA as rsa_local
 encrypted_files_default = "./results/encrypted/"
 decrypted_files_default = "./results/decrypted/"
 
+
 def encrypt(data_file, rsa_public_key):
     data = open(data_file, "r").read().encode("utf-8")
 
@@ -28,6 +29,7 @@ def encrypt(data_file, rsa_public_key):
     # Codifica os dados criptografados e o nonce gerado em base 64 e escreve no arquivo de saida
     open(encrypted_files_default + "encrypted_data.base64", "wb").write(b64encode(nonce + enc_data))
 
+
 def decrypt(enc_data_file, enc_key_file, rsa_private_key):
     enc_data_file = b64decode(open(enc_data_file, "rb").read())
     enc_session_key = b64decode(open(enc_key_file, "rb").read())
@@ -43,8 +45,3 @@ def decrypt(enc_data_file, enc_key_file, rsa_private_key):
     cipher = ARC4.new(stream_key)
     data = cipher.decrypt(enc_data)
     open(decrypted_files_default + "final_data.txt", "w").write(data.decode("utf-8"))
-
-if __name__ == "__main__":
-    encrypt("./Exemplos/temp/dados.txt", RSA.import_key(open("./core/chaves_RSA/public.pem", "rb").read()))
-    decrypt("./core/results/encrypted/encrypted_data.base64", "./core/results/encrypted/encrypted_key.base64",
-            RSA.import_key(open("./core/chaves_RSA/private.pem", "rb").read()))

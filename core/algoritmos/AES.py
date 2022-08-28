@@ -2,6 +2,7 @@ from base64 import b64decode, b64encode
 from Crypto.Cipher import AES
 import RSA, SessionKey
 from os import path
+
 encrypted_files_default = "./results/encrypted/"
 decrypted_files_default = "./results/decrypted/"
 

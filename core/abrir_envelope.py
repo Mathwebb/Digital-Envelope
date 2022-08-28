@@ -36,4 +36,3 @@ elif(algo_simetrico.upper()=="RC4"):
 else:
     print("O algoritmo simétrico dado é inválido")
 
-

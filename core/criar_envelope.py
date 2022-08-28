@@ -33,5 +33,3 @@ elif(algo_simetrico.upper()=="RC4"):
     RC4.encrypt(arquivo, chave_publica)
 else:
     print("O algoritmo simétrico dado é inválido")
-
-

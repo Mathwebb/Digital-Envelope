@@ -7,6 +7,7 @@ from os import path
 encrypted_files_default = "./results/encrypted/"
 decrypted_files_default = "./results/decrypted/"
 
+
 def encrypt(data_file, rsa_public_key):
     data = open(data_file, 'r').read().encode("utf-8")
 
@@ -21,7 +22,6 @@ def encrypt(data_file, rsa_public_key):
     open(encrypted_files_default + "encrypted_key.base64", "wb").write(b64encode(enc_session_key))
     # Codifica os dados criptografados e o iv do des em base 64 e escreve no arquivo de saida
     open(encrypted_files_default + "encrypted_data.base64", "wb").write(b64encode(cipher.iv + enc_data))
-
 
 
 def decrypt(enc_data_file, enc_key_file, rsa_private_key):
